@@ -1,0 +1,2 @@
+export const DISH_SELECTED = "DISH_SELECTED";
+export const DISH_UNSELECTED = "DISH_UNSELECTED";

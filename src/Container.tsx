@@ -1,11 +1,7 @@
 import React, { Component } from "react";
+import { IDish } from "./interfaces";
 
 //
-interface IDish {
-  name: string;
-  price: number;
-  id: number;
-}
 
 interface IStarters extends IDish {
   description: string;
