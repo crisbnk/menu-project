@@ -32,7 +32,31 @@ describe("Membership price page", () => {
       cy.get(".name").contains("Starter Name");
       cy.get(".price").contains("€ 7,50");
       cy.get(".description").contains("Dish description");
-      cy.get(".button").contains("Add to menu");
+    });
+  });
+
+  it("As a User I can select a dish from a list. Then I can click an 'Add to menu' button in the info card and I should be able to see the dish added to the menu list", () => {
+    cy.get(".starter-list").select("Starter name");
+    cy.get(".dish-card")
+      .find(".button")
+      .contains("Add to menu")
+      .click();
+    cy.get(".menu-list").within(() => {
+      cy.get("ul.menu-dishes li").should($lis => {
+        expect($lis).to.have.lenght(1);
+        expect($lis.eq(0)).to.contain("Starter name");
+      });
+    });
+  });
+
+  it("As a User I can add a dish to the menu list and I should be able to see the total price updated", () => {
+    cy.get(".starter-list").select("Starter name");
+    cy.get(".dish-card")
+      .find(".button")
+      .contains("Add to menu")
+      .click();
+    cy.get(".menu-list").within(() => {
+      cy.get(".total-price").contains("€ 7,50");
     });
   });
 });
