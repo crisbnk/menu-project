@@ -5,7 +5,7 @@
 // User Story #5: User should be able to select a dish, clicking an "Add to menu" button. After selecting it, user should be able to see the dish added to the menu list.
 // User Story #6: Adding a dish to the menu list, user should be able to see the total price updated.
 
-describe("Membership price page", () => {
+describe("Menu-Project App page", () => {
   beforeEach(() => {
     cy.visit("/");
   });

@@ -1,10 +1,12 @@
 import { IDish } from "../interfaces";
-import { DISH_SELECTED } from "../constants/action-types";
+import { ActionTypeKeys } from "../constants/action-types";
+import { ActionTypes } from "../actions";
 
 interface IInitialState {
   starters: IDish[];
   main: IDish[];
   dessert: IDish[];
+  [key: string]: IDish[];
 }
 
 const initialState: IInitialState = {
@@ -13,13 +15,18 @@ const initialState: IInitialState = {
   dessert: []
 };
 
-export default function rootReducer(state = initialState, action) {
-  if (action.type === DISH_SELECTED) {
+export default function rootReducer(state = initialState, action: ActionTypes) {
+  if (action.type === ActionTypeKeys.DISH_SELECTED) {
     return Object.assign({}, state, {
       [action.payload.id]: state[action.payload.id].concat(
         action.payload.selected
       )
     });
   }
+
+  if (action.type === ActionTypeKeys.DISH_UNSELECTED) {
+    return Object.assign({}, state, {});
+  }
+
   return state;
 }

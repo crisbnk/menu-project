@@ -1,2 +1,4 @@
-export const DISH_SELECTED = "DISH_SELECTED";
-export const DISH_UNSELECTED = "DISH_UNSELECTED";
+export enum ActionTypeKeys {
+  DISH_SELECTED = "DISH_SELECTED",
+  DISH_UNSELECTED = "DISH_UNSELECTED"
+}
