@@ -17,13 +17,13 @@ describe("Menu-Project App page", () => {
   it("As a User I can check three lists of daily dishes: Starter list, Main list and Dessert list", () => {
     cy.get(".starter-list")
       .children()
-      .should("have.lenght.of.at.least", "1");
+      .should("have.length.of.at.least", "1");
     cy.get(".main-list")
       .children()
-      .should("have.lenght.of.at.least", "1");
+      .should("have.length.of.at.least", "1");
     cy.get(".dessert-list")
       .children()
-      .should("have.lenght.of.at.least", "1");
+      .should("have.length.of.at.least", "1");
   });
 
   it("As a User I can check Name, Price and Description for each of the dishes, in an info card", () => {
@@ -43,7 +43,7 @@ describe("Menu-Project App page", () => {
       .click();
     cy.get(".menu-list").within(() => {
       cy.get("ul.menu-dishes li").should($lis => {
-        expect($lis).to.have.lenght(1);
+        expect($lis).to.have.length(1);
         expect($lis.eq(0)).to.contain("Starter name");
       });
     });
