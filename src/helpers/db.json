@@ -1,0 +1,40 @@
+{
+  "dishes": {
+    "starter": [
+      {
+        "id": 1,
+        "name": "Prawn Cocktail",
+        "price": 10
+      },
+      {
+        "id": 2,
+        "name": "Crostini",
+        "price": 5
+      }
+    ],
+    "main": [
+      {
+        "id": 3,
+        "name": "Steak",
+        "price": 40
+      },
+      {
+        "id": 4,
+        "name": "Smoked Salmon Sushi",
+        "price": 18
+      }
+    ],
+    "dessert": [
+      {
+        "id": 5,
+        "name": "Apple Pie",
+        "price": 7
+      },
+      {
+        "id": 6,
+        "name": "Cheese Cake",
+        "price": 8
+      }
+    ]
+  }
+}
