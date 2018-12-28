@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { IDish } from "./interfaces";
 import DishList from "./DishList";
+import Menu from "./Menu";
+import DishCard from "./DishCard";
 
 interface IStarters extends IDish {}
 
@@ -9,10 +11,14 @@ interface IMain extends IDish {}
 
 interface IDessert extends IDish {}
 
+interface ISelected extends IDish {}
+
 interface IContainerState {
   starter: IStarters[];
   main: IMain[];
   dessert: IDessert[];
+  selected: ISelected[];
+  dishInfo: IDish;
 }
 
 interface IContainerProps {}
@@ -23,7 +29,13 @@ export default class Container extends Component<
 > {
   constructor(props: IContainerProps) {
     super(props);
-    this.state = { starter: [], main: [], dessert: [] };
+    this.state = {
+      starter: [],
+      main: [],
+      dessert: [],
+      selected: [],
+      dishInfo: { id: 0, name: "Select a Dish", price: 0 }
+    };
   }
 
   // Move async logic out of React Component?
@@ -71,7 +83,8 @@ export default class Container extends Component<
             title="Select a dessert"
           />
         </div>
-        <div className="menu">Menu</div>
+        <DishCard dish={this.state.dishInfo} />
+        <Menu selected={this.state.selected} />
       </React.Fragment>
     );
   }

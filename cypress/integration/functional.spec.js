@@ -26,12 +26,11 @@ describe("Menu-Project App page", () => {
       .should("have.length.of.at.least", "1");
   });
 
-  it("As a User I can check Name, Price and Description for each of the dishes, in an info card", () => {
+  it("As a User I can check Name and Price for each of the dishes, in an info card", () => {
     cy.get(".starter-list").select("Starter name");
     cy.get(".dish-card").within(() => {
-      cy.get(".name").contains("Starter Name");
-      cy.get(".price").contains("€ 7,50");
-      cy.get(".description").contains("Dish description");
+      cy.get(".dish-name").contains("Starter Name");
+      cy.get(".dish-price").contains("€ 7,50");
     });
   });
 

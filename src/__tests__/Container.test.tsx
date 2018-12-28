@@ -9,10 +9,13 @@ describe("Container component", () => {
     const title = rootInstance.findByProps({ className: "title" });
     const dishes = rootInstance.findByProps({ className: "dishes-list" });
     const dishesList = dishes.findAllByType("select");
+    const dishCard = rootInstance.findByProps({ className: "dish-card" });
     const menu = rootInstance.findByProps({ className: "menu" });
+    const menuTitle = menu.findByProps({ className: "menu-title" });
 
     expect(title.props.children).toBe("Menu - Project App");
     expect(dishesList).toHaveLength(3);
-    expect(menu.props.children).toBe("Menu");
+    // TODO - dishCard test
+    expect(menuTitle.props.children).toBe("Your Menu");
   });
 });
