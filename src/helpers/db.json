@@ -3,37 +3,91 @@
     "starter": [
       {
         "id": 1,
-        "name": "Prawn Cocktail",
+        "name": "Prawn cocktail",
+        "img": "https://unsplash.com/photos/3hQr2vMta74",
         "price": 10
       },
       {
         "id": 2,
         "name": "Crostini",
+        "img": "https://unsplash.com/photos/YUQEo7ajeLA",
         "price": 5
+      },
+      {
+        "id": 7,
+        "name": "Fried dumplings",
+        "img": "https:v//unsplash.com/photos/pMdwJTeCboc",
+        "price": 4
+      },
+      {
+        "id": 8,
+        "name": "Bruschetta",
+        "img": "https://unsplash.com/photos/rPkgYDh2bmo",
+        "price": 6
+      },
+      {
+        "id": 13,
+        "name": "Mushroom salad",
+        "img": "https://unsplash.com/photos/DE4e_Sl0UbY",
+        "price": 7
       }
     ],
     "main": [
       {
         "id": 3,
         "name": "Steak",
+        "img": "https://unsplash.com/photos/jeiqzOgwwKU",
         "price": 40
       },
       {
         "id": 4,
-        "name": "Smoked Salmon Sushi",
+        "name": "Sushi",
+        "img": "https://unsplash.com/photos/VIv0srmK78g",
         "price": 18
+      },
+      {
+        "id": 9,
+        "name": "Meatballs",
+        "img": "https://unsplash.com/photos/AUAuEgUxg5Q",
+        "price": 11
+      },
+      {
+        "id": 10,
+        "name": "Farfalle with pesto",
+        "img": "https://unsplash.com/photos/12eHC6FxPyg",
+        "price": 8
+      },
+      {
+        "id": 11,
+        "name": "Pepperoni pizza",
+        "img": "https://unsplash.com/photos/SU1LFoeEUkk",
+        "price": 9
+      },
+      {
+        "id": 12,
+        "name": "Hamburger",
+        "img": "https://unsplash.com/photos/uL73uBFjz7o",
+        "price": 12
       }
     ],
     "dessert": [
       {
         "id": 5,
-        "name": "Apple Pie",
+        "name": "Apple pie",
+        "img": "https://unsplash.com/photos/xGYeAS0BjmQ",
         "price": 7
       },
       {
         "id": 6,
-        "name": "Cheese Cake",
+        "name": "Cheese cake",
+        "img": "hhttps://unsplash.com/photos/LGNxQzYmeUk",
         "price": 8
+      },
+      {
+        "id": 14,
+        "name": "Fruit salad",
+        "img": "https://unsplash.com/photos/YlwOMESLPQo",
+        "price": 6
       }
     ]
   }

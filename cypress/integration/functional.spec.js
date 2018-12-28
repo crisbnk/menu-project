@@ -27,35 +27,35 @@ describe("Menu-Project App page", () => {
   });
 
   it("As a User I can check Name and Price for each of the dishes, in an info card", () => {
-    cy.get(".starter-list").select("Starter name");
+    cy.get(".starter-list").select("Prawn cocktail");
     cy.get(".dish-card").within(() => {
-      cy.get(".dish-name").contains("Starter Name");
-      cy.get(".dish-price").contains("€ 7,50");
+      cy.get(".dish-name").contains("Prawn cocktail");
+      cy.get(".dish-price").contains("€ 10");
     });
   });
 
   it("As a User I can select a dish from a list. Then I can click an 'Add to menu' button in the info card and I should be able to see the dish added to the menu list", () => {
-    cy.get(".starter-list").select("Starter name");
+    cy.get(".starter-list").select("Prawn cocktail");
     cy.get(".dish-card")
-      .find(".button")
+      .find("button")
       .contains("Add to menu")
       .click();
-    cy.get(".menu-list").within(() => {
-      cy.get("ul.menu-dishes li").should($lis => {
+    cy.get(".menu").within(() => {
+      cy.get("ul.selected-dishes li").should($lis => {
         expect($lis).to.have.length(1);
-        expect($lis.eq(0)).to.contain("Starter name");
+        expect($lis.eq(0)).to.contain("Prawn cocktail");
       });
     });
   });
 
   it("As a User I can add a dish to the menu list and I should be able to see the total price updated", () => {
-    cy.get(".starter-list").select("Starter name");
+    cy.get(".starter-list").select("Prawn cocktail");
     cy.get(".dish-card")
-      .find(".button")
+      .find("button")
       .contains("Add to menu")
       .click();
-    cy.get(".menu-list").within(() => {
-      cy.get(".total-price").contains("€ 7,50");
+    cy.get(".menu").within(() => {
+      cy.get(".total-price").contains("€ 10");
     });
   });
 });

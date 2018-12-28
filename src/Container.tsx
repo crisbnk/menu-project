@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { IDish } from "./interfaces";
-import DishList from "./DishList";
+import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
 
@@ -18,7 +18,8 @@ interface IContainerState {
   main: IMain[];
   dessert: IDessert[];
   selected: ISelected[];
-  dishInfo: IDish;
+  dishInfo: IDish[];
+  [key: string]: IDish[];
 }
 
 interface IContainerProps {}
@@ -34,8 +35,10 @@ export default class Container extends Component<
       main: [],
       dessert: [],
       selected: [],
-      dishInfo: { id: 0, name: "Select a Dish", price: 0 }
+      dishInfo: []
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   // Move async logic out of React Component?
@@ -62,28 +65,49 @@ export default class Container extends Component<
     });
   }
 
+  handleChange(event: React.SyntheticEvent): void {
+    const { value, id } = event.target as HTMLInputElement;
+    const dishInfo = this.state[id].filter(el => value === el.name);
+
+    this.setState(() => {
+      return { dishInfo };
+    });
+  }
+
+  handleClick(dish: IDish): void {
+    this.setState(() => {
+      return { selected: this.state.selected.concat(dish) };
+    });
+  }
+
   render(): React.ReactNode {
     return (
       <React.Fragment>
         <h3 className="title">Menu - Project App</h3>
         <div className="dishes-list">
-          <DishList
+          <Select
             name="starter"
-            dishes={this.state.starter}
+            list={this.state.starter}
             title="Select a starter"
+            handleChange={this.handleChange}
+            id="starter"
           />
-          <DishList
+          <Select
             name="main"
-            dishes={this.state.main}
+            list={this.state.main}
             title="Select a main"
+            handleChange={this.handleChange}
+            id="main"
           />
-          <DishList
+          <Select
             name="dessert"
-            dishes={this.state.dessert}
+            list={this.state.dessert}
             title="Select a dessert"
+            handleChange={this.handleChange}
+            id="dessert"
           />
         </div>
-        <DishCard dish={this.state.dishInfo} />
+        <DishCard dish={this.state.dishInfo} handleClick={this.handleClick} />
         <Menu selected={this.state.selected} />
       </React.Fragment>
     );
