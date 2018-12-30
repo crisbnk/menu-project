@@ -58,4 +58,34 @@ describe("Menu-Project App page", () => {
       cy.get(".total-price").contains("€ 10");
     });
   });
+
+  it("As a User I add a first dish to the menu list, then I select a second dish and I should be able to see a dish forbidden message", () => {
+    cy.get(".starter-list").select("Prawn cocktail");
+    cy.get(".dish-card")
+      .find("button")
+      .contains("Add to menu")
+      .click();
+    cy.get(".main-list").select("Steak");
+    cy.get(".dish-card")
+      .find(".dish-forbidden")
+      .contains("Cannot add this dish to menu!");
+  });
+
+  it("As a User I can remove a dish from menu", () => {
+    cy.get(".starter-list").select("Prawn cocktail");
+    cy.get(".dish-card")
+      .find("button")
+      .contains("Add to menu")
+      .click();
+    cy.get(".menu").within(() => {
+      cy.contains("Prawn cocktail")
+        .find(".remove-dish")
+        .click();
+    });
+    cy.get(".menu").within(() => {
+      cy.get("ul.selected-dishes li").should($lis => {
+        expect($lis).to.have.length(0);
+      });
+    });
+  });
 });

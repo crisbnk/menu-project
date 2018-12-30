@@ -3,6 +3,7 @@ import { IDish } from "./interfaces";
 
 interface IMenuProps {
   selected: IDish[];
+  handleRemove(index: number, name: string): void;
 }
 
 const Menu: React.FunctionComponent<IMenuProps> = (props: IMenuProps) => {
@@ -16,9 +17,15 @@ const Menu: React.FunctionComponent<IMenuProps> = (props: IMenuProps) => {
     <div className="menu">
       <h3 className="menu-title">Your Menu</h3>
       <ul className="selected-dishes">
-        {props.selected.map((el: IDish) => (
+        {props.selected.map((el: IDish, index) => (
           <li key={el.id}>
-            {el.name} - € {el.price}
+            {el.name} - € {el.price}{" "}
+            <span
+              className="remove-dish"
+              onClick={() => props.handleRemove(index, el.name)}
+            >
+              X
+            </span>
           </li>
         ))}
       </ul>

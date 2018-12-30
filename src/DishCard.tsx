@@ -4,6 +4,7 @@ import { IDish } from "./interfaces";
 interface IDishCardProps {
   dish: IDish[];
   handleClick(dish: IDish): void;
+  forbiddenCombo: string[];
 }
 
 const DishCard: React.FunctionComponent<IDishCardProps> = (
@@ -20,9 +21,13 @@ const DishCard: React.FunctionComponent<IDishCardProps> = (
             <br />
             <span className="dish-price">€ {props.dish[0].price}</span>
           </p>
-          <button onClick={() => props.handleClick(props.dish[0])}>
-            Add to menu
-          </button>
+          {props.forbiddenCombo.indexOf(props.dish[0].name) >= 0 ? (
+            <p className="dish-forbidden">Cannot add this dish to menu!</p>
+          ) : (
+            <button onClick={() => props.handleClick(props.dish[0])}>
+              Add to menu
+            </button>
+          )}
         </div>
       ) : (
         <p>Please select a dish</p>

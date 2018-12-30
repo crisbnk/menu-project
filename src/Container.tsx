@@ -5,6 +5,21 @@ import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
 
+interface IforbiddenCombinations {
+  [key: string]: string;
+}
+
+const forbiddenCombinations: IforbiddenCombinations = {
+  Crostini: "Sushi",
+  "Fruit salad": "Hamburger",
+  Hamburger: "Fruit salad",
+  Meatballs: "Mushroom salad",
+  "Mushroom salad": "Meatballs",
+  "Prawn cocktail": "Steak",
+  Steak: "Prawn cocktail",
+  Sushi: "Crostini"
+};
+
 interface IStarters extends IDish {}
 
 interface IMain extends IDish {}
@@ -13,13 +28,15 @@ interface IDessert extends IDish {}
 
 interface ISelected extends IDish {}
 
+interface IDishInfo extends IDish {}
+
 interface IContainerState {
   starter: IStarters[];
   main: IMain[];
   dessert: IDessert[];
   selected: ISelected[];
-  dishInfo: IDish[];
-  [key: string]: IDish[];
+  dishInfo: IDishInfo[];
+  forbiddenCombo: string[];
 }
 
 interface IContainerProps {}
@@ -35,10 +52,12 @@ export default class Container extends Component<
       main: [],
       dessert: [],
       selected: [],
-      dishInfo: []
+      dishInfo: [],
+      forbiddenCombo: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   // Move async logic out of React Component?
@@ -67,7 +86,8 @@ export default class Container extends Component<
 
   handleChange(event: React.SyntheticEvent): void {
     const { value, id } = event.target as HTMLInputElement;
-    const dishInfo = this.state[id].filter(el => value === el.name);
+    //@ts-ignore
+    const dishInfo = this.state[id].filter((el: IDish) => value === el.name);
 
     this.setState(() => {
       return { dishInfo };
@@ -75,8 +95,29 @@ export default class Container extends Component<
   }
 
   handleClick(dish: IDish): void {
+    const forbiddenDish = forbiddenCombinations[dish.name] || "";
+
     this.setState(() => {
-      return { selected: this.state.selected.concat(dish) };
+      return {
+        selected: this.state.selected.concat(dish),
+        forbiddenCombo: forbiddenDish
+          ? this.state.forbiddenCombo.concat(forbiddenDish)
+          : this.state.forbiddenCombo
+      };
+    });
+  }
+
+  handleRemove(index: number, name: string): void {
+    const newSelected = [...this.state.selected];
+    const newForbiddenCombo = [...this.state.forbiddenCombo];
+
+    newSelected.splice(index, 1);
+    newForbiddenCombo.splice(
+      newForbiddenCombo.indexOf(forbiddenCombinations[name]),
+      1
+    );
+    this.setState(() => {
+      return { selected: newSelected, forbiddenCombo: newForbiddenCombo };
     });
   }
 
@@ -107,8 +148,12 @@ export default class Container extends Component<
             id="dessert"
           />
         </div>
-        <DishCard dish={this.state.dishInfo} handleClick={this.handleClick} />
-        <Menu selected={this.state.selected} />
+        <DishCard
+          dish={this.state.dishInfo}
+          handleClick={this.handleClick}
+          forbiddenCombo={this.state.forbiddenCombo}
+        />
+        <Menu selected={this.state.selected} handleRemove={this.handleRemove} />
       </React.Fragment>
     );
   }

@@ -7,27 +7,49 @@ describe("Menu component", () => {
     const selected = [
       {
         id: 1,
-        name: "Prawn Cocktail",
+        name: "Prawn cocktail",
+        img: "https://unsplash.com/photos/3hQr2vMta74",
         price: 10
       },
       {
-        id: 3,
-        name: "Steak",
-        price: 40
+        id: 4,
+        name: "Sushi",
+        img: "https://unsplash.com/photos/VIv0srmK78g",
+        price: 18
       },
       {
         id: 5,
-        name: "Apple Pie",
+        name: "Apple pie",
+        img: "https://unsplash.com/photos/xGYeAS0BjmQ",
         price: 7
       }
     ];
-    const component = create(<Menu selected={selected} />);
+    const component = create(
+      <Menu selected={selected} handleRemove={() => {}} />
+    );
     const rootInstance = component.root;
     const selectedDishes = rootInstance.findByProps({
       className: "selected-dishes"
     });
     const totalPrice = rootInstance.findByProps({ className: "total-price" });
     expect(selectedDishes.props.children).toHaveLength(3);
-    expect(totalPrice.props.children.join("")).toBe("€ 57");
+    expect(totalPrice.props.children.join("")).toBe("€ 35");
+  });
+
+  test("As a user I can see a remove dish button for each of all my selectet dishes", () => {
+    const selected = [
+      {
+        id: 1,
+        name: "Prawn cocktail",
+        img: "https://unsplash.com/photos/3hQr2vMta74",
+        price: 10
+      }
+    ];
+    const component = create(
+      <Menu selected={selected} handleRemove={() => {}} />
+    );
+    const rootInstance = component.root;
+    const removeDish = rootInstance.findByProps({ className: "remove-dish" });
+    expect(removeDish.props.children).toBe("X");
   });
 });
