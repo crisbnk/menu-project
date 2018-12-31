@@ -112,10 +112,14 @@ export default class Container extends Component<
     const newForbiddenCombo = [...this.state.forbiddenCombo];
 
     newSelected.splice(index, 1);
-    newForbiddenCombo.splice(
-      newForbiddenCombo.indexOf(forbiddenCombinations[name]),
-      1
-    );
+
+    if (newForbiddenCombo.indexOf(forbiddenCombinations[name]) >= 0) {
+      newForbiddenCombo.splice(
+        newForbiddenCombo.indexOf(forbiddenCombinations[name]),
+        1
+      );
+    }
+
     this.setState(() => {
       return { selected: newSelected, forbiddenCombo: newForbiddenCombo };
     });

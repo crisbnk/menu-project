@@ -88,4 +88,27 @@ describe("Menu-Project App page", () => {
       });
     });
   });
+
+  it("As a user I can add two dish (one of them on forbidden combo list) and I verify ", () => {
+    cy.get(".dessert-list").select("Apple pie");
+    cy.get(".dish-card")
+      .find("button")
+      .contains("Add to menu")
+      .click();
+    cy.get(".main-list").select("Hamburger");
+    cy.get(".dish-card")
+      .find("button")
+      .contains("Add to menu")
+      .click();
+    cy.get(".menu").within(() => {
+      cy.contains("Apple pie")
+        .find(".remove-dish")
+        .click();
+    });
+
+    cy.get(".dessert-list").select("Fruit salad");
+    cy.get(".dish-card")
+      .find(".dish-forbidden")
+      .contains("Cannot add this dish to menu!");
+  });
 });

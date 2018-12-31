@@ -4,31 +4,31 @@
       {
         "id": 1,
         "name": "Prawn cocktail",
-        "img": "https://unsplash.com/photos/3hQr2vMta74",
+        "img": "https://via.placeholder.com/500x100?text=Prawn+cocktail",
         "price": 10
       },
       {
         "id": 2,
         "name": "Crostini",
-        "img": "https://unsplash.com/photos/YUQEo7ajeLA",
+        "img": "https://via.placeholder.com/500x100?text=Crostini",
         "price": 5
       },
       {
         "id": 7,
         "name": "Fried dumplings",
-        "img": "https:v//unsplash.com/photos/pMdwJTeCboc",
+        "img": "https://via.placeholder.com/500x100?text=Fried+dumplings",
         "price": 4
       },
       {
         "id": 8,
         "name": "Bruschetta",
-        "img": "https://unsplash.com/photos/rPkgYDh2bmo",
+        "img": "https://via.placeholder.com/500x100?text=Bruschetta",
         "price": 6
       },
       {
         "id": 13,
         "name": "Mushroom salad",
-        "img": "https://unsplash.com/photos/DE4e_Sl0UbY",
+        "img": "https://via.placeholder.com/500x100?text=Mushroom+salad",
         "price": 7
       }
     ],
@@ -36,37 +36,37 @@
       {
         "id": 3,
         "name": "Steak",
-        "img": "https://unsplash.com/photos/jeiqzOgwwKU",
+        "img": "https://via.placeholder.com/500x100?text=Steak",
         "price": 40
       },
       {
         "id": 4,
         "name": "Sushi",
-        "img": "https://unsplash.com/photos/VIv0srmK78g",
+        "img": "https://via.placeholder.com/500x100?text=Sushi",
         "price": 18
       },
       {
         "id": 9,
         "name": "Meatballs",
-        "img": "https://unsplash.com/photos/AUAuEgUxg5Q",
+        "img": "https://via.placeholder.com/500x100?text=Meatballs",
         "price": 11
       },
       {
         "id": 10,
         "name": "Farfalle with pesto",
-        "img": "https://unsplash.com/photos/12eHC6FxPyg",
+        "img": "https://via.placeholder.com/500x100?text=Farfalle+with+pesto",
         "price": 8
       },
       {
         "id": 11,
         "name": "Pepperoni pizza",
-        "img": "https://unsplash.com/photos/SU1LFoeEUkk",
+        "img": "https://via.placeholder.com/500x100?text=Pepperoni+pizza",
         "price": 9
       },
       {
         "id": 12,
         "name": "Hamburger",
-        "img": "https://unsplash.com/photos/uL73uBFjz7o",
+        "img": "https://via.placeholder.com/500x100?text=Hamburger",
         "price": 12
       }
     ],
@@ -74,19 +74,19 @@
       {
         "id": 5,
         "name": "Apple pie",
-        "img": "https://unsplash.com/photos/xGYeAS0BjmQ",
+        "img": "https://via.placeholder.com/500x100?text=Apple+pie",
         "price": 7
       },
       {
         "id": 6,
         "name": "Cheese cake",
-        "img": "hhttps://unsplash.com/photos/LGNxQzYmeUk",
+        "img": "https://via.placeholder.com/500x100?text=Cheese+cake",
         "price": 8
       },
       {
         "id": 14,
         "name": "Fruit salad",
-        "img": "https://unsplash.com/photos/YlwOMESLPQo",
+        "img": "https://via.placeholder.com/500x100?text=Fruit+salad",
         "price": 6
       }
     ]
