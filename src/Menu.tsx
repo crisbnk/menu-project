@@ -14,7 +14,7 @@ const Menu: React.FunctionComponent<IMenuProps> = (props: IMenuProps) => {
     : { id: 0, name: "test", price: 0, img: "" };
 
   return (
-    <div className="menu">
+    <React.Fragment>
       <h3 className="menu-title">Your Menu</h3>
       <ul className="selected-dishes">
         {props.selected.map((el: IDish, index) => (
@@ -30,7 +30,7 @@ const Menu: React.FunctionComponent<IMenuProps> = (props: IMenuProps) => {
         ))}
       </ul>
       <p className="total-price">€ {totalPrice.price}</p>
-    </div>
+    </React.Fragment>
   );
 };
 

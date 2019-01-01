@@ -128,7 +128,9 @@ export default class Container extends Component<
   render(): React.ReactNode {
     return (
       <React.Fragment>
-        <h3 className="title">Menu - Project App</h3>
+        <div className="title">
+          <h3>Menu - Project App</h3>
+        </div>
         <div className="dishes-list">
           <Select
             name="starter"
@@ -152,12 +154,19 @@ export default class Container extends Component<
             id="dessert"
           />
         </div>
-        <DishCard
-          dish={this.state.dishInfo}
-          handleClick={this.handleClick}
-          forbiddenCombo={this.state.forbiddenCombo}
-        />
-        <Menu selected={this.state.selected} handleRemove={this.handleRemove} />
+        <div className="dish-card">
+          <DishCard
+            dish={this.state.dishInfo}
+            handleClick={this.handleClick}
+            forbiddenCombo={this.state.forbiddenCombo}
+          />
+        </div>
+        <div className="menu">
+          <Menu
+            selected={this.state.selected}
+            handleRemove={this.handleRemove}
+          />
+        </div>
       </React.Fragment>
     );
   }

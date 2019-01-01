@@ -11,7 +11,7 @@ const DishCard: React.FunctionComponent<IDishCardProps> = (
   props: IDishCardProps
 ) => {
   return (
-    <div className="dish-card">
+    <React.Fragment>
       <h3 className="dish-card-title">Dish Info</h3>
       {props.dish.length ? (
         <div>
@@ -32,7 +32,7 @@ const DishCard: React.FunctionComponent<IDishCardProps> = (
       ) : (
         <p>Please select a dish</p>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 
