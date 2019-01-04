@@ -1,10 +1,13 @@
-import { ActionTypeKeys } from "../constants/action-types";
-import { addToForbidden, removeFromForbidden } from "../actions";
-import forbiddenCombinations from "../helpers/forbiddenCombinations";
+// See https://github.com/reduxjs/redux/blob/master/test/typescript/middleware.ts
 
-export default function forbiddenComboMiddleware(store) {
-  return function(next) {
-    return function(action) {
+import { ActionTypeKeys } from "../constants/action-types";
+import { addToForbidden, removeFromForbidden, ActionTypes } from "../actions";
+import forbiddenCombinations from "../helpers/forbiddenCombinations";
+import { MiddlewareAPI, Dispatch } from "redux";
+
+export default function forbiddenComboMiddleware(store: MiddlewareAPI) {
+  return function(next: Dispatch) {
+    return function(action: ActionTypes) {
       const actualState = store.getState();
       const forbiddenCombo = actualState.forbiddenCombo;
 
