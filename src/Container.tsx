@@ -4,21 +4,8 @@ import { IDish } from "./interfaces";
 import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
-
-interface IforbiddenCombinations {
-  [key: string]: string;
-}
-
-const forbiddenCombinations: IforbiddenCombinations = {
-  Crostini: "Sushi",
-  "Fruit salad": "Hamburger",
-  Hamburger: "Fruit salad",
-  Meatballs: "Mushroom salad",
-  "Mushroom salad": "Meatballs",
-  "Prawn cocktail": "Steak",
-  Steak: "Prawn cocktail",
-  Sushi: "Crostini"
-};
+import { connect } from "react-redux";
+import { showInfo, addToMenu, removeFromMenu, ActionTypes } from "./actions";
 
 interface IStarters extends IDish {}
 
@@ -39,12 +26,11 @@ interface IContainerState {
   forbiddenCombo: string[];
 }
 
-interface IContainerProps {}
+interface IContainerProps {
+  [key: string]: ActionTypes;
+}
 
-export default class Container extends Component<
-  IContainerProps,
-  IContainerState
-> {
+export class Container extends Component<IContainerProps, IContainerState> {
   constructor(props: IContainerProps) {
     super(props);
     this.state = {
@@ -87,42 +73,25 @@ export default class Container extends Component<
   handleChange(event: React.SyntheticEvent): void {
     const { value, id } = event.target as HTMLInputElement;
     //@ts-ignore
-    const dishInfo = this.state[id].filter((el: IDish) => value === el.name);
+    const dish = this.state[id].filter((el: IDish) => value === el.name);
+    const payload = { id: "dishInfo", dish };
 
-    this.setState(() => {
-      return { dishInfo };
-    });
+    //@ts-ignore
+    this.props.showInfo(payload);
   }
 
   handleClick(dish: IDish): void {
-    const forbiddenDish = forbiddenCombinations[dish.name] || "";
-
-    this.setState(() => {
-      return {
-        selected: this.state.selected.concat(dish),
-        forbiddenCombo: forbiddenDish
-          ? this.state.forbiddenCombo.concat(forbiddenDish)
-          : this.state.forbiddenCombo
-      };
+    // TODO - Dispatch an action
+    //@ts-ignore
+    this.props.addToMenu({
+      id: "selected",
+      dish
     });
   }
 
-  handleRemove(index: number, name: string): void {
-    const newSelected = [...this.state.selected];
-    const newForbiddenCombo = [...this.state.forbiddenCombo];
-
-    newSelected.splice(index, 1);
-
-    if (newForbiddenCombo.indexOf(forbiddenCombinations[name]) >= 0) {
-      newForbiddenCombo.splice(
-        newForbiddenCombo.indexOf(forbiddenCombinations[name]),
-        1
-      );
-    }
-
-    this.setState(() => {
-      return { selected: newSelected, forbiddenCombo: newForbiddenCombo };
-    });
+  handleRemove(dish: IDish): void {
+    // @ts-ignore
+    this.props.removeFromMenu({ id: "selected", dish });
   }
 
   render(): React.ReactNode {
@@ -156,14 +125,17 @@ export default class Container extends Component<
         </div>
         <div className="dish-card">
           <DishCard
-            dish={this.state.dishInfo}
+            //@ts-ignore
+            dish={this.props.dishInfo}
             handleClick={this.handleClick}
-            forbiddenCombo={this.state.forbiddenCombo}
+            //@ts-ignore
+            forbiddenCombo={this.props.forbiddenCombo}
           />
         </div>
         <div className="menu">
           <Menu
-            selected={this.state.selected}
+            //@ts-ignore
+            selected={this.props.selected}
             handleRemove={this.handleRemove}
           />
         </div>
@@ -171,3 +143,17 @@ export default class Container extends Component<
     );
   }
 }
+
+//@ts-ignore
+const mapStateToProps = state => {
+  return {
+    dishInfo: state.dishInfo,
+    selected: state.selected,
+    forbiddenCombo: state.forbiddenCombo
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { showInfo, addToMenu, removeFromMenu }
+)(Container);

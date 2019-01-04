@@ -1,10 +1,14 @@
 import { ActionTypeKeys } from "../constants/action-types";
 import { IDish } from "../interfaces";
-import { type } from "os";
 
-interface IPayload {
+export interface IPayload {
   id: string;
-  selected: IDish;
+  dish: IDish;
+}
+
+export interface IPayloadForbidden {
+  id: string;
+  name: string;
 }
 
 export interface IDishSelected {
@@ -12,11 +16,38 @@ export interface IDishSelected {
   payload: IPayload;
 }
 
-export interface IDishUnselected {
-  type: ActionTypeKeys.DISH_UNSELECTED;
+export interface IShowInfo {
+  type: ActionTypeKeys.SHOW_INFO;
+  payload: IPayload;
 }
 
-export type ActionTypes = IDishSelected | IDishUnselected;
+export interface IAddToMenu {
+  type: ActionTypeKeys.ADD_TO_MENU;
+  payload: IPayload;
+}
+
+export interface IRemoveFromMenu {
+  type: ActionTypeKeys.REMOVE_FROM_MENU;
+  payload: IPayload;
+}
+
+export interface IAddToForbidden {
+  type: ActionTypeKeys.ADD_TO_FORBIDDEN;
+  payload: IPayloadForbidden;
+}
+
+export interface IRemoveFromForbidden {
+  type: ActionTypeKeys.REMOVE_FROM_FORBIDDEN;
+  payload: IPayloadForbidden;
+}
+
+export type ActionTypes =
+  | IDishSelected
+  | IShowInfo
+  | IAddToMenu
+  | IRemoveFromMenu
+  | IAddToForbidden
+  | IRemoveFromForbidden;
 
 export function dishSelected(payload: IPayload): IDishSelected {
   return {
@@ -25,8 +56,30 @@ export function dishSelected(payload: IPayload): IDishSelected {
   };
 }
 
-export function dishUnselected(payload: IPayload): IDishUnselected {
+export function showInfo(payload: IPayload): IShowInfo {
   return {
-    type: ActionTypeKeys.DISH_UNSELECTED
+    type: ActionTypeKeys.SHOW_INFO,
+    payload
   };
+}
+
+export function addToMenu(payload: IPayload): IAddToMenu {
+  return {
+    type: ActionTypeKeys.ADD_TO_MENU,
+    payload
+  };
+}
+
+export function removeFromMenu(payload: IPayload): IRemoveFromMenu {
+  return { type: ActionTypeKeys.REMOVE_FROM_MENU, payload };
+}
+
+export function addToForbidden(payload: IPayloadForbidden): IAddToForbidden {
+  return { type: ActionTypeKeys.ADD_TO_FORBIDDEN, payload };
+}
+
+export function removeFromForbidden(
+  payload: IPayloadForbidden
+): IRemoveFromForbidden {
+  return { type: ActionTypeKeys.REMOVE_FROM_FORBIDDEN, payload };
 }
