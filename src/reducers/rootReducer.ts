@@ -24,22 +24,19 @@ const initialState: IInitialState = {
 export default function rootReducer(state = initialState, action: ActionTypes) {
   if (action.type === ActionTypeKeys.SHOW_INFO) {
     return Object.assign({}, state, {
-      //@ts-ignore
-      [action.payload.id]: [].concat(action.payload.dish)
+      dishInfo: action.payload.dish
     });
   }
 
   if (action.type === ActionTypeKeys.ADD_TO_MENU) {
     return Object.assign({}, state, {
-      //@ts-ignore
-      [action.payload.id]: state[action.payload.id].concat(action.payload.dish)
+      selected: state.selected.concat(action.payload.dish)
     });
   }
 
   if (action.type === ActionTypeKeys.REMOVE_FROM_MENU) {
     return Object.assign({}, state, {
-      //@ts-ignore
-      [action.payload.id]: state[action.payload.id].filter(
+      selected: state.selected.filter(
         (el: IDish) => el.name !== action.payload.dish.name
       )
     });
@@ -47,15 +44,13 @@ export default function rootReducer(state = initialState, action: ActionTypes) {
 
   if (action.type === ActionTypeKeys.ADD_TO_FORBIDDEN) {
     return Object.assign({}, state, {
-      //@ts-ignore
-      [action.payload.id]: state[action.payload.id].concat(action.payload.name)
+      forbiddenCombo: state.forbiddenCombo.concat(action.payload.name)
     });
   }
 
   if (action.type === ActionTypeKeys.REMOVE_FROM_FORBIDDEN) {
     return Object.assign({}, state, {
-      //@ts-ignore
-      [action.payload.id]: state[action.payload.id].filter(
+      forbiddenCombo: state.forbiddenCombo.filter(
         (el: string) => el !== action.payload.name
       )
     });

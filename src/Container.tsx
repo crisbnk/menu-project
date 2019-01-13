@@ -23,7 +23,7 @@ interface IContainerState {
   dessert: IDessert[];
   selected: ISelected[];
   dishInfo: IDishInfo[];
-  forbiddenCombo: string[];
+  [key: string]: IDish[];
 }
 
 interface IContainerProps {
@@ -38,8 +38,7 @@ export class Container extends Component<IContainerProps, IContainerState> {
       main: [],
       dessert: [],
       selected: [],
-      dishInfo: [],
-      forbiddenCombo: []
+      dishInfo: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -72,7 +71,6 @@ export class Container extends Component<IContainerProps, IContainerState> {
 
   handleChange(event: React.SyntheticEvent): void {
     const { value, id } = event.target as HTMLInputElement;
-    //@ts-ignore
     const dish = this.state[id].filter((el: IDish) => value === el.name);
     const payload = { id: "dishInfo", dish };
 
