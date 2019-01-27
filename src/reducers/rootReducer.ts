@@ -47,5 +47,24 @@ export default function rootReducer(state = initialState, action: ActionTypes) {
     });
   }
 
+  if (action.type === ActionTypeKeys.DATA_LOADED) {
+    return Object.assign({}, state, {
+      starter: action.payload.starter,
+      main: action.payload.main,
+      dessert: action.payload.dessert
+    });
+  }
+
+  // if (action.type === ActionTypeKeys.DATA_LOADED) {
+  //   return Object.assign({}, state, {
+  //     // @ts-ignore
+  //     starter: action.payload.starter,
+  //     // @ts-ignore
+  //     main: action.payload.main,
+  //     // @ts-ignore
+  //     dessert: action.payload.dessert
+  //   });
+  // }
+
   return state;
 }

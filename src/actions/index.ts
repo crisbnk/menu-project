@@ -1,5 +1,7 @@
 import { ActionTypeKeys } from "../constants/action-types";
 import { IDish } from "../interfaces";
+import { Dispatch } from "react";
+import { DispatchProp } from "react-redux";
 
 export interface IPayload {
   id: string;
@@ -9,6 +11,12 @@ export interface IPayload {
 export interface IPayloadForbidden {
   id: string;
   name: string;
+}
+
+export interface IPayloadDataLoaded {
+  starter: IDish[];
+  main: IDish[];
+  dessert: IDish[];
 }
 
 export interface IDishSelected {
@@ -41,13 +49,19 @@ export interface IRemoveFromForbidden {
   payload: IPayloadForbidden;
 }
 
+export interface IDataLoaded {
+  type: ActionTypeKeys.DATA_LOADED;
+  payload: IPayloadDataLoaded;
+}
+
 export type ActionTypes =
   | IDishSelected
   | IShowInfo
   | IAddToMenu
   | IRemoveFromMenu
   | IAddToForbidden
-  | IRemoveFromForbidden;
+  | IRemoveFromForbidden
+  | IDataLoaded;
 
 export function dishSelected(payload: IPayload): IDishSelected {
   return {
@@ -83,3 +97,37 @@ export function removeFromForbidden(
 ): IRemoveFromForbidden {
   return { type: ActionTypeKeys.REMOVE_FROM_FORBIDDEN, payload };
 }
+
+// Async Middleware
+export function getData() {
+  // @ts-ignore
+  return function(dispatch: Dispatch) {
+    // TODO - COME GESTIRESTI LA CONDIZIONE DI ERRORE CON FETCH? QUALI PARTICOLARITA' PRESENTA?
+    fetch("http://localhost:3004/dishes")
+      .then(res => res.json())
+      .then(json => dispatch(dataLoaded(json)));
+  };
+}
+
+function dataLoaded(payload: IPayloadDataLoaded): IDataLoaded {
+  return { type: ActionTypeKeys.DATA_LOADED, payload };
+}
+
+// loadDishes(dishesList: IContainerState) {
+//   this.setState(() => {
+//     return {
+//       starter: dishesList.starter,
+//       main: dishesList.main,
+//       dessert: dishesList.dessert
+//     };
+//   });
+// }
+
+// async getData() {
+//   try {
+//     const response = await axios.get("http://localhost:3004/dishes");
+//     return this.loadDishes(response.data);
+//   } catch (e) {
+//     throw new Error(e);
+//   }
+// }

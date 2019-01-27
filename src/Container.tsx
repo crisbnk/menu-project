@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { IDish } from "./interfaces";
 import Select from "./Select";
 import Menu from "./Menu";
@@ -13,7 +12,8 @@ import {
   IShowInfo,
   IPayload,
   IAddToMenu,
-  IRemoveFromMenu
+  IRemoveFromMenu,
+  getData
 } from "./actions";
 
 interface IStarters extends IDish {}
@@ -39,6 +39,9 @@ interface IContainerProps {
   showInfo(payload: IPayload): IShowInfo;
   addToMenu(payload: IPayload): IAddToMenu;
   removeFromMenu(payload: IPayload): IRemoveFromMenu;
+  starter: IStarters[];
+  main: IMain[];
+  dessert: IDessert[];
   dishInfo: IDish;
   forbiddenCombo: string[];
   selected: IDish[];
@@ -60,32 +63,15 @@ export class Container extends Component<IContainerProps, IContainerState> {
   }
 
   // Move async logic out of React Component?
-  async componentDidMount() {
-    await this.getData();
-  }
-
-  async getData() {
-    try {
-      const response = await axios.get("http://localhost:3004/dishes");
-      return this.loadDishes(response.data);
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
-
-  loadDishes(dishesList: IContainerState) {
-    this.setState(() => {
-      return {
-        starter: dishesList.starter,
-        main: dishesList.main,
-        dessert: dishesList.dessert
-      };
-    });
+  componentDidMount() {
+    // @ts-ignore
+    this.props.getData();
   }
 
   handleChange(event: React.SyntheticEvent): void {
     const { value, id } = event.target as HTMLInputElement;
-    const dish = this.state[id].filter((el: IDish) => value === el.name)[0];
+    // @ts-ignore
+    const dish = this.props[id].filter((el: IDish) => value === el.name)[0];
     const payload = { id: "dishInfo", dish };
 
     this.props.showInfo(payload);
@@ -113,21 +99,21 @@ export class Container extends Component<IContainerProps, IContainerState> {
         <div className="dishes-list">
           <Select
             name="starter"
-            list={this.state.starter}
+            list={this.props.starter}
             title="Select a starter"
             handleChange={this.handleChange}
             id="starter"
           />
           <Select
             name="main"
-            list={this.state.main}
+            list={this.props.main}
             title="Select a main"
             handleChange={this.handleChange}
             id="main"
           />
           <Select
             name="dessert"
-            list={this.state.dessert}
+            list={this.props.dessert}
             title="Select a dessert"
             handleChange={this.handleChange}
             id="dessert"
@@ -153,6 +139,9 @@ export class Container extends Component<IContainerProps, IContainerState> {
 
 const mapStateToProps = (state: IInitialState) => {
   return {
+    starter: state.starter,
+    main: state.main,
+    dessert: state.dessert,
     dishInfo: state.dishInfo,
     selected: state.selected,
     forbiddenCombo: state.forbiddenCombo
@@ -161,5 +150,5 @@ const mapStateToProps = (state: IInitialState) => {
 
 export default connect(
   mapStateToProps,
-  { showInfo, addToMenu, removeFromMenu }
+  { showInfo, addToMenu, removeFromMenu, getData }
 )(Container);
