@@ -5,7 +5,16 @@ import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
 import { connect } from "react-redux";
-import { showInfo, addToMenu, removeFromMenu, ActionTypes } from "./actions";
+import { IInitialState } from "./interfaces";
+import {
+  showInfo,
+  addToMenu,
+  removeFromMenu,
+  IShowInfo,
+  IPayload,
+  IAddToMenu,
+  IRemoveFromMenu
+} from "./actions";
 
 interface IStarters extends IDish {}
 
@@ -27,7 +36,12 @@ interface IContainerState {
 }
 
 interface IContainerProps {
-  [key: string]: ActionTypes;
+  showInfo(payload: IPayload): IShowInfo;
+  addToMenu(payload: IPayload): IAddToMenu;
+  removeFromMenu(payload: IPayload): IRemoveFromMenu;
+  dishInfo: IDish;
+  forbiddenCombo: string[];
+  selected: IDish[];
 }
 
 export class Container extends Component<IContainerProps, IContainerState> {
@@ -71,16 +85,15 @@ export class Container extends Component<IContainerProps, IContainerState> {
 
   handleChange(event: React.SyntheticEvent): void {
     const { value, id } = event.target as HTMLInputElement;
-    const dish = this.state[id].filter((el: IDish) => value === el.name);
+    const dish = this.state[id].filter((el: IDish) => value === el.name)[0];
     const payload = { id: "dishInfo", dish };
 
-    //@ts-ignore
     this.props.showInfo(payload);
   }
 
   handleClick(dish: IDish): void {
     // TODO - Dispatch an action
-    //@ts-ignore
+
     this.props.addToMenu({
       id: "selected",
       dish
@@ -88,7 +101,6 @@ export class Container extends Component<IContainerProps, IContainerState> {
   }
 
   handleRemove(dish: IDish): void {
-    // @ts-ignore
     this.props.removeFromMenu({ id: "selected", dish });
   }
 
@@ -123,16 +135,13 @@ export class Container extends Component<IContainerProps, IContainerState> {
         </div>
         <div className="dish-card">
           <DishCard
-            //@ts-ignore
             dish={this.props.dishInfo}
             handleClick={this.handleClick}
-            //@ts-ignore
             forbiddenCombo={this.props.forbiddenCombo}
           />
         </div>
         <div className="menu">
           <Menu
-            //@ts-ignore
             selected={this.props.selected}
             handleRemove={this.handleRemove}
           />
@@ -142,8 +151,7 @@ export class Container extends Component<IContainerProps, IContainerState> {
   }
 }
 
-//@ts-ignore
-const mapStateToProps = state => {
+const mapStateToProps = (state: IInitialState) => {
   return {
     dishInfo: state.dishInfo,
     selected: state.selected,

@@ -1,23 +1,14 @@
 import { IDish } from "../interfaces";
 import { ActionTypeKeys } from "../constants/action-types";
 import { ActionTypes } from "../actions";
-
-interface IInitialState {
-  starter: IDish[];
-  main: IDish[];
-  dessert: IDish[];
-  selected: IDish[];
-  dishInfo: IDish[];
-  forbiddenCombo: string[];
-  [key: string]: IDish[] | string[];
-}
+import { IInitialState } from "../interfaces";
 
 const initialState: IInitialState = {
   starter: [],
   main: [],
   dessert: [],
   selected: [],
-  dishInfo: [],
+  dishInfo: { name: "", id: 0, price: 0, img: "" },
   forbiddenCombo: []
 };
 

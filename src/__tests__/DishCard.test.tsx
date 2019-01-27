@@ -4,14 +4,12 @@ import DishCard from "../DishCard";
 
 describe("DishCard component", () => {
   test("As a user I see a card section with info about a selected dish", () => {
-    const dish = [
-      {
-        id: 1,
-        name: "Prawn cocktail",
-        img: "https://unsplash.com/photos/3hQr2vMta74",
-        price: 10
-      }
-    ];
+    const dish = {
+      id: 1,
+      name: "Prawn cocktail",
+      img: "https://unsplash.com/photos/3hQr2vMta74",
+      price: 10
+    };
     const component = create(
       <DishCard dish={dish} handleClick={() => {}} forbiddenCombo={[]} />
     );
@@ -28,14 +26,12 @@ describe("DishCard component", () => {
 
   test("As a user I see a message if a dish is forbidden with the already selected dishes", () => {
     const forbiddenCombo = ["Steak"];
-    const dish = [
-      {
-        id: 3,
-        name: "Steak",
-        img: "https://unsplash.com/photos/jeiqzOgwwKU",
-        price: 40
-      }
-    ];
+    const dish = {
+      id: 3,
+      name: "Steak",
+      img: "https://unsplash.com/photos/jeiqzOgwwKU",
+      price: 40
+    };
     const component = create(
       <DishCard
         dish={dish}
