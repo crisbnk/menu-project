@@ -39,6 +39,7 @@ interface IContainerProps {
   showInfo(payload: IPayload): IShowInfo;
   addToMenu(payload: IPayload): IAddToMenu;
   removeFromMenu(payload: IPayload): IRemoveFromMenu;
+  getData(): void;
   starter: IStarters[];
   main: IMain[];
   dessert: IDessert[];
@@ -64,7 +65,6 @@ export class Container extends Component<IContainerProps, IContainerState> {
 
   // Move async logic out of React Component?
   componentDidMount() {
-    // @ts-ignore
     this.props.getData();
   }
 
@@ -78,8 +78,6 @@ export class Container extends Component<IContainerProps, IContainerState> {
   }
 
   handleClick(dish: IDish): void {
-    // TODO - Dispatch an action
-
     this.props.addToMenu({
       id: "selected",
       dish

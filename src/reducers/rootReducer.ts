@@ -55,16 +55,5 @@ export default function rootReducer(state = initialState, action: ActionTypes) {
     });
   }
 
-  // if (action.type === ActionTypeKeys.DATA_LOADED) {
-  //   return Object.assign({}, state, {
-  //     // @ts-ignore
-  //     starter: action.payload.starter,
-  //     // @ts-ignore
-  //     main: action.payload.main,
-  //     // @ts-ignore
-  //     dessert: action.payload.dessert
-  //   });
-  // }
-
   return state;
 }

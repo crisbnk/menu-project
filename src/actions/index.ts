@@ -1,7 +1,6 @@
 import { ActionTypeKeys } from "../constants/action-types";
 import { IDish } from "../interfaces";
 import { Dispatch } from "react";
-import { DispatchProp } from "react-redux";
 
 export interface IPayload {
   id: string;
@@ -100,12 +99,24 @@ export function removeFromForbidden(
 
 // Async Middleware
 export function getData() {
-  // @ts-ignore
-  return function(dispatch: Dispatch) {
-    // TODO - COME GESTIRESTI LA CONDIZIONE DI ERRORE CON FETCH? QUALI PARTICOLARITA' PRESENTA?
+  return function(dispatch: Dispatch<IDataLoaded>) {
+    // TODO - How to handle ERRORS with FETCH? Which distinctive features does it have?
+    // The Promise returned from fetch() won’t reject on HTTP error status even if the response is an HTTP 404 or 500.
+    // Instead, it will resolve normally (with ok status set to false),
+    // and it will only reject on network failure or if anything prevented the request from completing.
     fetch("http://localhost:3004/dishes")
-      .then(res => res.json())
-      .then(json => dispatch(dataLoaded(json)));
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("HTTP error, status = " + res.status);
+      })
+      .then(json => dispatch(dataLoaded(json)))
+      .catch(err =>
+        console.log(
+          "There has been a problem with your fetch operation: " + err.message
+        )
+      );
   };
 }
 
