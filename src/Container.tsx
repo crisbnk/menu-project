@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { IDish } from "./interfaces";
+import {
+  IDish,
+  IStarters,
+  IMain,
+  IDessert,
+  ISelected,
+  IDishInfo
+} from "./interfaces";
 import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
@@ -16,23 +23,13 @@ import {
   getData
 } from "./actions";
 
-interface IStarters extends IDish {}
-
-interface IMain extends IDish {}
-
-interface IDessert extends IDish {}
-
-interface ISelected extends IDish {}
-
-interface IDishInfo extends IDish {}
-
 interface IContainerState {
   starter: IStarters[];
   main: IMain[];
   dessert: IDessert[];
   selected: ISelected[];
-  dishInfo: IDishInfo[];
-  [key: string]: IDish[];
+  dishInfo: IDishInfo;
+  [key: string]: IDish[] | IDish;
 }
 
 interface IContainerProps {
@@ -56,7 +53,7 @@ export class Container extends Component<IContainerProps, IContainerState> {
       main: [],
       dessert: [],
       selected: [],
-      dishInfo: []
+      dishInfo: { name: "", price: 0, id: 0, img: "" }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);

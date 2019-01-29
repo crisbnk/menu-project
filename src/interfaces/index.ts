@@ -13,3 +13,13 @@ export interface IInitialState {
   dishInfo: IDish;
   forbiddenCombo: string[];
 }
+
+export interface IStarters extends IDish {}
+
+export interface IMain extends IDish {}
+
+export interface IDessert extends IDish {}
+
+export interface ISelected extends IDish {}
+
+export interface IDishInfo extends IDish {}

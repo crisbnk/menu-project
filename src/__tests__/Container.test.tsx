@@ -1,10 +1,58 @@
 import React from "react";
 import { create } from "react-test-renderer";
-import Container from "../Container";
+import { Container } from "../Container";
+import { IPayload, IShowInfo, IAddToMenu, IRemoveFromMenu } from "../actions";
+import { ActionTypeKeys } from "../constants/action-types";
+import { IDish, IStarters, IMain, IDessert } from "../interfaces";
 
 describe("Container component", () => {
   test("As a user I see a title section, a dishes list section and a menu section", () => {
-    const component = create(<Container />);
+    function showInfo(payload: IPayload): IShowInfo {
+      return {
+        type: ActionTypeKeys.SHOW_INFO,
+        payload
+      };
+    }
+
+    function addToMenu(payload: IPayload): IAddToMenu {
+      return {
+        type: ActionTypeKeys.ADD_TO_MENU,
+        payload
+      };
+    }
+
+    function removeFromMenu(payload: IPayload): IRemoveFromMenu {
+      return { type: ActionTypeKeys.REMOVE_FROM_MENU, payload };
+    }
+
+    function getData() {}
+
+    const starter: IStarters[] = [];
+    const main: IMain[] = [];
+    const dessert: IDessert[] = [];
+    const forbiddenCombo: string[] = [];
+    const selected: IDish[] = [];
+    const dishInfo: IDish = {
+      id: 1,
+      name: "Prawn cocktail",
+      img: "https://unsplash.com/photos/3hQr2vMta74",
+      price: 10
+    };
+
+    const component = create(
+      <Container
+        dishInfo={dishInfo}
+        showInfo={showInfo}
+        addToMenu={addToMenu}
+        removeFromMenu={removeFromMenu}
+        starter={starter}
+        main={main}
+        dessert={dessert}
+        getData={getData}
+        forbiddenCombo={forbiddenCombo}
+        selected={selected}
+      />
+    );
     const rootInstance = component.root;
     const title = rootInstance.findByProps({ className: "title" });
     const titleHeader = title.findByType("h3");
