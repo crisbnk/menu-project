@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, Middleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "../reducers/rootReducer";
-import thunkMiddleware from "redux-thunk";
 import forbiddenComboMiddleware from "../middleware/forbiddenComboMiddleware";
+import { getDataMiddleware } from "../middleware/getDataMiddleware";
 
-const middlewares: Middleware[] = [thunkMiddleware, forbiddenComboMiddleware];
+const middlewares: Middleware[] = [getDataMiddleware, forbiddenComboMiddleware];
 const composeEnhancers = composeWithDevTools({});
 const store = createStore(
   rootReducer,

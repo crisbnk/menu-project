@@ -55,5 +55,10 @@ export default function rootReducer(state = initialState, action: ActionTypes) {
     });
   }
 
+  // TODO - Handle error on API
+  if (action.type === ActionTypeKeys.API_ERRORED) {
+    return Object.assign({}, state);
+  }
+
   return state;
 }
