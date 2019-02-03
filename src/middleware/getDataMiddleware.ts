@@ -1,6 +1,6 @@
 import { ActionTypeKeys } from "../constants/action-types";
 import { dataLoaded, apiErrored, ActionTypes } from "../actions";
-import { Dispatch, Middleware, MiddlewareAPI } from "redux";
+import { Dispatch, MiddlewareAPI } from "redux";
 
 export function getDataMiddleware({ dispatch }: MiddlewareAPI) {
   return function(next: Dispatch) {
