@@ -10,6 +10,7 @@ import {
 import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
+import Message from "./Message";
 import { connect } from "react-redux";
 import { IInitialState } from "./interfaces";
 import {
@@ -41,6 +42,7 @@ interface IContainerProps {
   main: IMain[];
   dessert: IDessert[];
   dishInfo: IDish;
+  message: string;
   forbiddenCombo: string[];
   selected: IDish[];
 }
@@ -114,6 +116,13 @@ export class Container extends Component<IContainerProps, IContainerState> {
             id="dessert"
           />
         </div>
+        {this.props.message ? (
+          <div className="message">
+            <Message message={this.props.message} />
+          </div>
+        ) : (
+          <div />
+        )}
         <div className="dish-card">
           <DishCard
             dish={this.props.dishInfo}
@@ -138,6 +147,7 @@ const mapStateToProps = (state: IInitialState) => {
     main: state.main,
     dessert: state.dessert,
     dishInfo: state.dishInfo,
+    message: state.message,
     selected: state.selected,
     forbiddenCombo: state.forbiddenCombo
   };

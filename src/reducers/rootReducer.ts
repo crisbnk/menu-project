@@ -8,6 +8,7 @@ const initialState: IInitialState = {
   main: [],
   dessert: [],
   selected: [],
+  message: "",
   dishInfo: { name: "", id: 0, price: 0, img: "" },
   forbiddenCombo: []
 };
@@ -55,9 +56,8 @@ export default function rootReducer(state = initialState, action: ActionTypes) {
     });
   }
 
-  // TODO - Handle error on API
   if (action.type === ActionTypeKeys.API_ERRORED) {
-    return Object.assign({}, state);
+    return Object.assign({}, state, { message: action.payload.message });
   }
 
   return state;

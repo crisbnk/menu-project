@@ -11,6 +11,7 @@ export interface IInitialState {
   dessert: IDish[];
   selected: IDish[];
   dishInfo: IDish;
+  message: string;
   forbiddenCombo: string[];
 }
 

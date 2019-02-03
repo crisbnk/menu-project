@@ -19,6 +19,10 @@ export interface IPayloadDataLoaded {
   dessert: IDish[];
 }
 
+export interface IPayloadApiErrored {
+  message: string;
+}
+
 export interface IDishSelected {
   type: ActionTypeKeys.DISH_SELECTED;
   payload: IPayload;
@@ -60,6 +64,7 @@ export interface IGetData {
 
 export interface IApiErrored {
   type: ActionTypeKeys.API_ERRORED;
+  payload: IPayloadApiErrored;
 }
 
 export type ActionTypes =
@@ -118,6 +123,6 @@ export function dataLoaded(payload: IPayloadDataLoaded): IDataLoaded {
   return { type: ActionTypeKeys.DATA_LOADED, payload };
 }
 
-export function apiErrored(): IApiErrored {
-  return { type: ActionTypeKeys.API_ERRORED };
+export function apiErrored(payload: IPayloadApiErrored): IApiErrored {
+  return { type: ActionTypeKeys.API_ERRORED, payload };
 }
