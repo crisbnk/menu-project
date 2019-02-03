@@ -14,13 +14,7 @@ export function getDataMiddleware({ dispatch }: MiddlewareAPI) {
             throw new Error("HTTP error, status = " + res.status);
           })
           .then(json => dispatch(dataLoaded(json)))
-          .catch(err => {
-            console.log(
-              "There has been a problem with your fetch operation: " +
-                err.message
-            );
-            dispatch(apiErrored({ message: err.message }));
-          });
+          .catch(err => dispatch(apiErrored({ message: err.message })));
       }
       return next(action);
     };
