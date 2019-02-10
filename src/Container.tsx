@@ -23,6 +23,7 @@ import {
   IRemoveFromMenu,
   getData
 } from "./actions";
+import { selectedSelector } from "./selectors";
 
 interface IContainerState {
   starter: IStarters[];
@@ -45,6 +46,7 @@ interface IContainerProps {
   message: string;
   forbiddenCombo: string[];
   selected: IDish[];
+  totalPrice: number;
 }
 
 export class Container extends Component<IContainerProps, IContainerState> {
@@ -133,6 +135,7 @@ export class Container extends Component<IContainerProps, IContainerState> {
         <div className="menu">
           <Menu
             selected={this.props.selected}
+            totalPrice={this.props.totalPrice}
             handleRemove={this.handleRemove}
           />
         </div>
@@ -141,7 +144,7 @@ export class Container extends Component<IContainerProps, IContainerState> {
   }
 }
 
-const mapStateToProps = (state: IInitialState) => {
+const select = (state: IInitialState) => {
   return {
     starter: state.starter,
     main: state.main,
@@ -149,11 +152,12 @@ const mapStateToProps = (state: IInitialState) => {
     dishInfo: state.dishInfo,
     message: state.message,
     selected: state.selected,
-    forbiddenCombo: state.forbiddenCombo
+    forbiddenCombo: state.forbiddenCombo,
+    totalPrice: selectedSelector(state)
   };
 };
 
 export default connect(
-  mapStateToProps,
+  select,
   { showInfo, addToMenu, removeFromMenu, getData }
 )(Container);

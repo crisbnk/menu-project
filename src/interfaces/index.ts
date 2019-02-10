@@ -13,6 +13,7 @@ export interface IInitialState {
   dishInfo: IDish;
   message: string;
   forbiddenCombo: string[];
+  totalPrice: number;
 }
 
 export interface IStarters extends IDish {}

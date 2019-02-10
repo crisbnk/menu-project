@@ -3,16 +3,11 @@ import { IDish } from "./interfaces";
 
 interface IMenuProps {
   selected: IDish[];
+  totalPrice: number;
   handleRemove(dish: IDish): void;
 }
 
 const Menu: React.FunctionComponent<IMenuProps> = (props: IMenuProps) => {
-  const totalPrice = props.selected.length
-    ? props.selected.reduce((pv, cv) => {
-        return { id: 0, name: "test", price: pv.price + cv.price, img: "" };
-      })
-    : { id: 0, name: "test", price: 0, img: "" };
-
   return (
     <React.Fragment>
       <h3 className="menu-title">Your Menu</h3>
@@ -29,7 +24,7 @@ const Menu: React.FunctionComponent<IMenuProps> = (props: IMenuProps) => {
           </li>
         ))}
       </ul>
-      <p className="total-price">€ {totalPrice.price}</p>
+      <p className="total-price">€ {props.totalPrice}</p>
     </React.Fragment>
   );
 };

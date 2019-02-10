@@ -10,7 +10,8 @@ const initialState: IInitialState = {
   selected: [],
   message: "",
   dishInfo: { name: "", id: 0, price: 0, img: "" },
-  forbiddenCombo: []
+  forbiddenCombo: [],
+  totalPrice: 0
 };
 
 export default function rootReducer(state = initialState, action: ActionTypes) {

@@ -39,6 +39,7 @@ describe("Container component", () => {
       img: "https://unsplash.com/photos/3hQr2vMta74",
       price: 10
     };
+    const totalPrice = 0;
 
     const component = create(
       <Container
@@ -53,6 +54,7 @@ describe("Container component", () => {
         getData={getData}
         forbiddenCombo={forbiddenCombo}
         selected={selected}
+        totalPrice={totalPrice}
       />
     );
     const rootInstance = component.root;
