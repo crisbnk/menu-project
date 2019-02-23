@@ -1,12 +1,5 @@
-import React, { Component } from "react";
-import {
-  IDish,
-  IStarters,
-  IMain,
-  IDessert,
-  ISelected,
-  IDishInfo
-} from "./interfaces";
+import React, { useEffect } from "react";
+import { IDish, IStarters, IMain, IDessert } from "./interfaces";
 import Select from "./Select";
 import Menu from "./Menu";
 import DishCard from "./DishCard";
@@ -25,15 +18,6 @@ import {
 } from "./actions";
 import { selectedSelector } from "./selectors";
 
-interface IContainerState {
-  starter: IStarters[];
-  main: IMain[];
-  dessert: IDessert[];
-  selected: ISelected[];
-  dishInfo: IDishInfo;
-  [key: string]: IDish[] | IDish;
-}
-
 interface IContainerProps {
   showInfo(payload: IPayload): IShowInfo;
   addToMenu(payload: IPayload): IAddToMenu;
@@ -49,100 +33,85 @@ interface IContainerProps {
   totalPrice: number;
 }
 
-export class Container extends Component<IContainerProps, IContainerState> {
-  constructor(props: IContainerProps) {
-    super(props);
-    this.state = {
-      starter: [],
-      main: [],
-      dessert: [],
-      selected: [],
-      dishInfo: { name: "", price: 0, id: 0, img: "" }
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
-  }
+export const Container: React.FunctionComponent<IContainerProps> = (
+  props: IContainerProps
+) => {
+  useEffect(() => {
+    props.getData();
+  });
 
-  // Move async logic out of React Component?
-  componentDidMount() {
-    this.props.getData();
-  }
-
-  handleChange(event: React.SyntheticEvent): void {
+  function handleChange(event: React.SyntheticEvent): void {
     const { value, id } = event.target as HTMLInputElement;
     // @ts-ignore
-    const dish = this.props[id].filter((el: IDish) => value === el.name)[0];
+    const dish = props[id].filter((el: IDish) => value === el.name)[0];
     const payload = { id: "dishInfo", dish };
 
-    this.props.showInfo(payload);
+    props.showInfo(payload);
   }
 
-  handleClick(dish: IDish): void {
-    this.props.addToMenu({
+  function handleClick(dish: IDish): void {
+    props.addToMenu({
       id: "selected",
       dish
     });
   }
 
-  handleRemove(dish: IDish): void {
-    this.props.removeFromMenu({ id: "selected", dish });
+  function handleRemove(dish: IDish): void {
+    props.removeFromMenu({ id: "selected", dish });
   }
 
-  render(): React.ReactNode {
-    return (
-      <React.Fragment>
-        <div className="title">
-          <h3>Menu - Project App</h3>
+  return (
+    <React.Fragment>
+      <div className="title">
+        <h3>Menu - Project App</h3>
+      </div>
+      <div className="dishes-list">
+        <Select
+          name="starter"
+          list={props.starter}
+          title="Select a starter"
+          handleChange={handleChange}
+          id="starter"
+        />
+        <Select
+          name="main"
+          list={props.main}
+          title="Select a main"
+          handleChange={handleChange}
+          id="main"
+        />
+        <Select
+          name="dessert"
+          list={props.dessert}
+          title="Select a dessert"
+          handleChange={handleChange}
+          id="dessert"
+        />
+      </div>
+      {props.message ? (
+        <div className="message">
+          <Message message={props.message} />
         </div>
-        <div className="dishes-list">
-          <Select
-            name="starter"
-            list={this.props.starter}
-            title="Select a starter"
-            handleChange={this.handleChange}
-            id="starter"
-          />
-          <Select
-            name="main"
-            list={this.props.main}
-            title="Select a main"
-            handleChange={this.handleChange}
-            id="main"
-          />
-          <Select
-            name="dessert"
-            list={this.props.dessert}
-            title="Select a dessert"
-            handleChange={this.handleChange}
-            id="dessert"
-          />
-        </div>
-        {this.props.message ? (
-          <div className="message">
-            <Message message={this.props.message} />
-          </div>
-        ) : (
-          <div />
-        )}
-        <div className="dish-card">
-          <DishCard
-            dish={this.props.dishInfo}
-            handleClick={this.handleClick}
-            forbiddenCombo={this.props.forbiddenCombo}
-          />
-        </div>
-        <div className="menu">
-          <Menu
-            selected={this.props.selected}
-            totalPrice={this.props.totalPrice}
-            handleRemove={this.handleRemove}
-          />
-        </div>
-      </React.Fragment>
-    );
-  }
-}
+      ) : (
+        <div />
+      )}
+      <div className="dish-card">
+        <DishCard
+          dish={props.dishInfo}
+          handleClick={handleClick}
+          forbiddenCombo={props.forbiddenCombo}
+        />
+      </div>
+      <div className="menu">
+        <Menu
+          selected={props.selected}
+          totalPrice={props.totalPrice}
+          handleRemove={handleRemove}
+        />
+      </div>
+    </React.Fragment>
+  );
+};
 
 const select = (state: IInitialState) => {
   return {
